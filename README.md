@@ -2,6 +2,8 @@
 
 **Memristor based in-memory computing hardware-software co-design** for efficient on-site nanopore raw signal alignment. We simulate the performance of our method based on real-world memristor device and real nanopore sequencing data.
 
+![overview](overview.jpg)
+
 ## Code structure
 
 - `/code/random_conductance`: Real random memristor conductance array for LSH
@@ -82,4 +84,4 @@ F1: 97.38
 
 ## Acknowledgement
 
-The segmentation code is implemented by [UNCALLED4](https://github.com/skovaka/uncalled4), and segmentation parameters are from [sigmap](https://github.com/haowenz/sigmap) and [UNCALLED](https://github.com/skovaka/UNCALLED).
+The segmentation code is implemented by [UNCALLED4](https://github.com/skovaka/uncalled4), and segmentation parameters are from [sigmap](https://github.com/haowenz/sigmap) and [UNCALLED](https://github.com/skovaka/UNCALLED). The authors would like to thank Sam Kovaka, Hasindu Gamaarachchi, and Can Firtina for their thorough explanations and insightful discussions.
