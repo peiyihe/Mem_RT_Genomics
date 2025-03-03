@@ -1,4 +1,4 @@
-# CIM-Raw-Signal-Alignment
+# Memristor based real-time genomic analysis
 
 **Memristor based in-memory computing hardware-software co-design** for efficient on-site nanopore raw signal alignment. We simulate the performance of our method based on real-world memristor device and real nanopore sequencing data.
 
