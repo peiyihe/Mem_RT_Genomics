@@ -22,7 +22,7 @@
 Run following command in your Linux terminal:
 
 ```shell
-git clone https://github.com/peiyihe/CIM-Raw-Signal-Alignment.git
+git clone https://github.com/peiyihe/Mem_RT_Genomics.git
 cd CIM-Raw-Signal-Alignment
 ```
 
