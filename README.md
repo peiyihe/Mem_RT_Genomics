@@ -23,7 +23,7 @@ Run following command in your Linux terminal:
 
 ```shell
 git clone https://github.com/peiyihe/Mem_RT_Genomics.git
-cd CIM-Raw-Signal-Alignment
+cd Mem_RT_Genomics
 ```
 
 Create conda environment and install:
