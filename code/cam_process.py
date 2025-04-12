@@ -154,7 +154,7 @@ def update_position_variation(gon, goff, sample_number, position, direction, sea
     - random_matrix_tensor, reference_array_tensor, reference_array_comp_tensor: Tensors used
     - col, Threshold, sub_array_row, n_blocks: Algorithm parameters
     """
-    for i in tqdm(index, mininterval=300):
+    for i in tqdm(index):
         _read_id = read_id[i]
         for threshold in thresholds:
             event_new = read_event(sp, fast5_file, _read_id, sample_number)

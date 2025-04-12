@@ -126,7 +126,7 @@ Threshold = _Threshold *146.79*1e-6 + (LSH_col - _Threshold)*4.33*1e-6
 
 # read_number = 10000
 
-for i in tqdm(range(0,read_number), mininterval=100):
+for i in tqdm(range(0,read_number)):
     _read_id = read_id[i]
     final_location, dir, _search_time, _votes = process_sample_variation(gon, goff, sample_number, sp, _read_id, fast5_file, random_matrix_tensor, ref_array_tensor, ref_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, difference, device = 'cuda')
     
