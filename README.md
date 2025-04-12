@@ -26,13 +26,15 @@ git clone https://github.com/peiyihe/Mem_RT_Genomics.git
 cd Mem_RT_Genomics
 ```
 
-Create conda environment and install:
+Create conda environment and install (PyTorch GPU setup):
 
 ```shell
 conda create --name test_lsh python=3.8
 conda activate test_lsh
 pip install -r requirements.txt
 ```
+
+**Note:** We also provide a CPU-only NumPy implementation, which doesn't require PyTorch for GPU acceleration. See details in `/example_np/LSH_Raw_Signal_Alignment_np_v2.ipynb`.
 
 ## Raw Signal Mapping
 
