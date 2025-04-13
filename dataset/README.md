@@ -1,6 +1,6 @@
 ## Data Source
 
-Kmer model is from [Oxford Nanopore Technologies](https://github.com/nanoporetech/kmer_models/tree/master/legacy/legacy_r9.4_180mv_450bps_6mer.).
+Kmer model is from [Oxford Nanopore Technologies](https://github.com/nanoporetech/kmer_models/tree/master/legacy/legacy_r9.4_180mv_450bps_6mer).
 
 Fast5 reads are from CADDE Centre and are downloaded using the script from [Rawhash](https://github.com/CMU-SAFARI/RawHash/tree/main):
 
