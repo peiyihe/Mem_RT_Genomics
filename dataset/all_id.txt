@@ -1,0 +1,10 @@
+SP1-mapped102.fast5
+SP1-mapped220.fast5  
+SP1-mapped485.fast5  
+SP1-mapped51.fast5   
+SP1-mapped690.fast5
+SP1-mapped179.fast5  
+SP1-mapped442.fast5  
+SP1-mapped500.fast5  
+SP1-mapped620.fast5  
+SP1-mapped746.fast5
