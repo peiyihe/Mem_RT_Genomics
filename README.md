@@ -62,7 +62,7 @@ python -u lsh.py \
 
 ## Simulation results
 
-We integrate `uncalled pafstats` functionality from [UNCALLED](https://github.com/skovaka/UNCALLED) and compare the mapping locations from our method with locations from [minimap2](https://github.com/lh3/minimap2) (Ground truth), and calculate the F1 scores.
+We integrate `uncalled pafstats` functionality from [UNCALLED](https://github.com/skovaka/UNCALLED) and compare the mapping locations from our method with locations from [minimap2](https://github.com/lh3/minimap2) (Ground truth), and calculate the F1 scores. This step requires approximately 2 minutes on RTX 4090 GPU.
 
 **Example:**
 
