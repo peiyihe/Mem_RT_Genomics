@@ -38,7 +38,7 @@ pip install -r requirements.txt
 
 ## Raw Signal Mapping
 
-**Examples:**
+**Examples:** Here we map  SARS-CoV-2 R9.4 nanopore raw signals to SARS-CoV-2 reference genome. The results are shown in the 'Simulation Results' section.
 
 ```shell
 cd code
