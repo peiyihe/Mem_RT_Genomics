@@ -38,7 +38,7 @@ pip install -r requirements.txt
 
 ## Raw Signal Mapping
 
-**Examples:** Here we map  SARS-CoV-2 R9.4 nanopore raw signals to SARS-CoV-2 reference genome. The results are shown in the 'Simulation Results' section.
+**Examples:** Here we map  SARS-CoV-2 R9.4 nanopore raw signals to SARS-CoV-2 reference genome. This step requires approximately 2 minutes on RTX 4090 GPU. The results are shown in the 'Simulation Results' section.
 
 ```shell
 cd code
@@ -62,7 +62,7 @@ python -u lsh.py \
 
 ## Simulation results
 
-We integrate `uncalled pafstats` functionality from [UNCALLED](https://github.com/skovaka/UNCALLED) and compare the mapping locations from our method with locations from [minimap2](https://github.com/lh3/minimap2) (Ground truth), and calculate the F1 scores. This step requires approximately 2 minutes on RTX 4090 GPU.
+We integrate `uncalled pafstats` functionality from [UNCALLED](https://github.com/skovaka/UNCALLED) and compare the mapping locations from our method with locations from [minimap2](https://github.com/lh3/minimap2) (Ground truth), and calculate the F1 scores.
 
 **Example:**
 
