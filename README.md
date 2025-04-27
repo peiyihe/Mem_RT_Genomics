@@ -15,7 +15,7 @@
 - `/code/cam_search.py`: Search the memristor based TCAM
 - `/code/cam_process.py`: Process the search results (votes) to decide the mapping result
 - `/code/pafstats.py`: Compare the simulation result with ground truth (minimap2), and calculate the F1 score
-- `/code/lsh.py`: Simulate the memristor based raw signal alignment
+- `/code/lsh.py`: Main function for memristor-based raw signal alignment simulation
 
 ## Installation
 
