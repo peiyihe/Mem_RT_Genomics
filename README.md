@@ -1,6 +1,6 @@
-# Memristor based real-time genomic analysis
+# Memristor based real-time genomic analysis 
 
-**Memristor based in-memory computing hardware-software co-design** for efficient on-site nanopore raw signal alignment. We simulate the performance of our method based on real-world memristor device and real nanopore sequencing data.
+**Memristor based in-memory computing hardware-software co-design** for efficient on-site nanopore raw signal alignment. This is the source code for the paper: [Real-time raw signal genomic analysis using fully integrated memristor hardware](https://arxiv.org/abs/2504.15934). We simulate the performance of our method based on real-world memristor device and real nanopore sequencing data.
 
 ![overview](fig/overview.jpg)
 
