@@ -1,10 +1,10 @@
 from event_processor import read_event, filter_events
 from cam_search import process_event,process_event_contamination, process_event_variation ,process_event_contamination_variation
 
-def process_sample_variation(gon, goff, sample_number, sp, _read_id, fast5_file, random_matrix_tensor, reference_array_tensor, reference_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, thresholds, device):
+def process_sample_variation(gon, goff, sample_number, skip_samples, sp, _read_id, fast5_file, random_matrix_tensor, reference_array_tensor, reference_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, thresholds, device):
 
 
-    event_original = read_event(sp, fast5_file, _read_id,sample_number)
+    event_original = read_event(sp, fast5_file, _read_id,sample_number, skip_samples)
     search_time = 0
     for threshold in thresholds:
         event_filtered = filter_events(event_original, threshold)
@@ -142,7 +142,7 @@ def process_sample_contamination(sample_number, sp, _read_id, fast5_file, random
 
 from tqdm import tqdm
 
-def update_position_variation(gon, goff, sample_number, position, direction, search_time, vote_location, sp, read_id, fast5_file, index, thresholds, random_matrix_tensor, reference_array_tensor, reference_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, device):
+def update_position_variation(gon, goff, sample_number, skip_samples, position, direction, search_time, vote_location, sp, read_id, fast5_file, index, thresholds, random_matrix_tensor, reference_array_tensor, reference_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, device):
     """
     Update position and orientation, try different filtering thresholds.
 
@@ -157,7 +157,7 @@ def update_position_variation(gon, goff, sample_number, position, direction, sea
     for i in tqdm(index):
         _read_id = read_id[i]
         for threshold in thresholds:
-            event_new = read_event(sp, fast5_file, _read_id, sample_number)
+            event_new = read_event(sp, fast5_file, _read_id, sample_number, skip_samples)
             event_new = filter_events(event_new, threshold)
             event_length = min(13000, len(event_new))
             event = event_new[:2000]
@@ -294,11 +294,11 @@ def update_position_contamination(sample_number, position, direction, search_tim
                     vote_location[i] = votes_comp
                     break
 
-def process_location(sample_number, sp, low_boundary, high_boundary, read_id, read_number, positions, fast5_file, sub_array_row):
+def process_location(sample_number, skip_samples, sp, low_boundary, high_boundary, read_id, read_number, positions, fast5_file, sub_array_row):
     
     for i in tqdm(range(0,read_number), disable=True):
         _read_id = read_id[i]
-        event_original = read_event(sp, fast5_file, _read_id, sample_number)
+        event_original = read_event(sp, fast5_file, _read_id, sample_number, skip_samples)
         event_4 = filter_events(event_original, 4)
         event_length = len(event_4)
         event_length = max(event_length, sub_array_row)

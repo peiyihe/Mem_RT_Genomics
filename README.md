@@ -38,25 +38,35 @@ pip install -r requirements.txt
 
 ## Raw Signal Mapping
 
+**Input FAST5 File Format:** The input should be in standard FAST5 format containing raw nanopore signal data. Each read in the file stores the electrical current measurements from nanopore sequencing.
+
+**Input Reference Genome Format:** The reference genome should be in FASTA format (.fa) containing the corresponding reference sequence.
+
+**Output:** The mapping results will be generated in  [PAF](https://github.com/lh3/miniasm/blob/master/PAF.md), which is the same as [UNCALLED](https://github.com/skovaka/UNCALLED).
+
 **Examples:** Here we map  SARS-CoV-2 R9.4 nanopore raw signals to SARS-CoV-2 reference genome. This step requires approximately 2 minutes on RTX 4090 GPU. The results are shown in the 'Simulation Results' section.
 
 ```shell
 cd code
 python -u lsh.py \
+  --input_fast5_file_path "../dataset/SP1-mapped500.fast5" \
+  --input_ref_fa "../dataset/sarscov2.fa" \
   --read_number 1000 \
-  --threshold 7 \
   --sample_number 4000 \
-  --std 2 \
-  --file_path "../dataset/SP1-mapped500.fast5"
+  --skip_samples 0 \
+  --threshold 7 \
+  --std 2
 ```
 
 **Optional arguments:**
 
-- `read_number`: Maximum numbers of raw signal to map
-- `threshold`: TCAM threshold value
+- `input_fast5_file_path`: Input raw signal fast5 file path.
+- `input_ref_fa`: Input reference genome file path.
+- `read_number`: Maximum numbers of raw signal to map.
 - `sample_number`: Maximum number of raw signal samples. For example, with R9.4.1 nanopore sequencing, 4000 samples are collected per second.
+- `skip_samples`: Number of initial samples to skip in nanopore raw signal
+- `threshold`: TCAM threshold value.
 - `std`: The memristor conductance variation in TCAM is set to 2 µS.
-- `file_path`: Input raw signal file path
 
 **Warning:**  We only show 1000 reads as example, to reproduce the original result in our paper, you have to download the dataset according to `/dataset/all_id.txt`. And also you need to generate the new ground truth file by [minimap2](https://github.com/lh3/minimap2), the generated new ground true file should be named as **minimap2_sars2.paf** and replace the old version in `/code/result_template/minimap2_sars2.paf`.
 

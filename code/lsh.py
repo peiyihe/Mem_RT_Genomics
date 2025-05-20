@@ -22,11 +22,15 @@ import argparse
 def main():
     parser = argparse.ArgumentParser(description="A program that uses Threshold and Sample_number from command line.")
 
+    parser.add_argument('--input_fast5_file_path', type=str, required=True, help='Path to the fast5 file')
+    parser.add_argument('--input_ref_fa', type=str, required=True, help='Path to the reference file')
+
     parser.add_argument('--read_number', type=int, required=True, help='Set the read number')
-    parser.add_argument('--threshold', type=float, required=True, help='Set the threshold value')
+    parser.add_argument('--threshold', type=float, required=True, help='Set the CAM threshold value')
     parser.add_argument('--sample_number', type=int, required=True, help='Set the sample number')
+    parser.add_argument('--skip_samples', type=int, required=True, help='Number of initial samples to skip in nanopore raw signal')
     parser.add_argument('--std', type=float, required=True, help='Set the variation of memristor')
-    parser.add_argument('--file_path', type=str, required=True, help='Path to the fast5 file')
+
 
     args = parser.parse_args()
 
@@ -34,29 +38,35 @@ def main():
     Sample_number = args.sample_number
     std_rram = args.std
     _read_number = args.read_number
-    Fast5_file = args.file_path
+    Fast5_file = args.input_fast5_file_path
 
-    return _read_number, _Threshold, Sample_number, std_rram, Fast5_file
+    input_ref_fa = args.input_ref_fa
+    skip_samples = args.skip_samples
+    return _read_number, _Threshold, Sample_number, std_rram, Fast5_file, input_ref_fa, skip_samples
 
 if __name__ == '__main__':
-    read_number, _Threshold, sample_number, std, fast5_file = main()
+    read_number, _Threshold, sample_number, std, fast5_file, input_ref_fa, skip_samples = main()
     std = std*1e-6
     print("reads:", read_number)
     print("Threshold:", _Threshold)
     print("Sample_number:",sample_number)
     print("std:",std)
     print("fast5_file:", fast5_file)
+    print("input_ref_fa:", input_ref_fa)
+    print("skip_samples:", skip_samples)
 
 
 # Read the main sequence
-main_sequence_path = '../dataset/sarscov2.fna'
+# main_sequence_path = '../dataset/sarscov2.fna'
+main_sequence_path = input_ref_fa
 main_sequences = sequence_to_signal.read_fasta(main_sequence_path)
 main_sequence_length = sequence_to_signal.get_sequence_length(main_sequence_path)
 
 # Read the complement sequence
-complement_sequence_path = '../dataset/sarscov2_complement_true.fna'
-complement_sequences = sequence_to_signal.read_fasta(complement_sequence_path)
-complement_sequence_length = sequence_to_signal.get_sequence_length(complement_sequence_path)
+# complement_sequence_path = '../dataset/sarscov2_complement_true.fna'
+# complement_sequences = sequence_to_signal.read_fasta(complement_sequence_path)
+complement_sequences = sequence_to_signal.reverse_complement(main_sequences)
+complement_sequence_length = sequence_to_signal.get_sequence_length(main_sequence_path)
 
 # print(f"Length of main sequence: {main_sequence_length}")
 # print(f"Length of complement sequence: {complement_sequence_length}")
@@ -128,7 +138,7 @@ Threshold = _Threshold *146.79*1e-6 + (LSH_col - _Threshold)*4.33*1e-6
 
 for i in tqdm(range(0,read_number)):
     _read_id = read_id[i]
-    final_location, dir, _search_time, _votes = process_sample_variation(gon, goff, sample_number, sp, _read_id, fast5_file, random_matrix_tensor, ref_array_tensor, ref_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, difference, device = 'cuda')
+    final_location, dir, _search_time, _votes = process_sample_variation(gon, goff, sample_number, skip_samples, sp, _read_id, fast5_file, random_matrix_tensor, ref_array_tensor, ref_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, difference, device = 'cuda')
     
     position.append(final_location)
     direction.append(dir)
@@ -138,7 +148,7 @@ for i in tqdm(range(0,read_number)):
 N_count = sum(1 for item in position if item == 'N')
 
 index = [i for i, x in enumerate(position) if x == 'N']
-update_position_variation(gon, goff, sample_number, position, direction, search_time, vote_location, sp1, read_id, fast5_file, index, [4, 3], random_matrix_tensor, ref_array_tensor, ref_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, device = 'cuda')
+update_position_variation(gon, goff, sample_number, skip_samples, position, direction, search_time, vote_location, sp1, read_id, fast5_file, index, [4, 3], random_matrix_tensor, ref_array_tensor, ref_array_comp_tensor, col, Threshold, sub_array_row, n_blocks, device = 'cuda')
 
 N_count = sum(1 for item in position if item == 'N')
 
@@ -162,7 +172,7 @@ _direction = ['*' if x == 'N' else x for x in _direction]
 low_boundary=[]
 high_boundary=[]
 _position=np.array(_position)
-low_boundary,high_boundary= process_location(sample_number, sp, low_boundary, high_boundary, read_id, read_number, _position, fast5_file, sub_array_row)
+low_boundary,high_boundary= process_location(sample_number, skip_samples, sp, low_boundary, high_boundary, read_id, read_number, _position, fast5_file, sub_array_row)
 
 data_list = _direction
 

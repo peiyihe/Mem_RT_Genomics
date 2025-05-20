@@ -24,16 +24,13 @@ def EventProcessor():
 
     return sp, sp1
 
-def read_event(sp, file, id, sample_number, skip_samples):
+def read_event(sp, file, id, sample_number):
     """ Extracts and processes events from a given FAST5 file using the specified signal processor. """
     with get_fast5_file(file, mode='r') as f5:
         read_id = id
         _read = f5.get_read(read_id)
         signal = _read.get_raw_data(scale=True)  # Scale signal to unit amplitude
-        if len(signal) > skip_samples and sample_number > skip_samples:
-            signal = signal[skip_samples:sample_number]
-        else:
-            signal = signal[0:sample_number]
+        signal = signal[0:sample_number]
     read = sp.process_signal(signal, normalize=True)  # Signal should be numpy array/list of raw sample values
     return read.events["mean"]
 

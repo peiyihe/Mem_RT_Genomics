@@ -8,7 +8,7 @@ current_dir = Path(os.getcwd())
 parent_dir = current_dir.parent
 code_dir = parent_dir / "code"
 sys.path.append(str(code_dir))
-from event_processor import read_event, filter_events
+from event_processor_np import read_event, filter_events
 from cam_search_np import process_event
 
 def process_sample(sample_number, sp, _read_id, fast5_file, random_matrix_numpy, reference_array_numpy, reference_array_comp_numpy, col, Threshold, sub_array_row, n_blocks, thresholds):

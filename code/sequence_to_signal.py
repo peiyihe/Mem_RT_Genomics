@@ -65,6 +65,14 @@ def read_fasta(file_path):
         return sequence  # Return the first sequence found
     return ""  # Return an empty string if no sequences are found
 
+def complement(seq):
+    complement = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C',
+                  'a': 'T', 't': 'A', 'c': 'G', 'g': 'C'}
+    return ''.join([complement[base] for base in seq])
+
+def reverse_complement(seq):
+    return complement(seq[::-1])
+
 def get_sequence_length(file_path):
     """
     Get the length of the sequence from the given FASTA file.
