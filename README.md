@@ -38,7 +38,7 @@ pip install -r requirements.txt
 
 **Note:** We also provide a CPU-only NumPy implementation, which doesn't require PyTorch for GPU acceleration. See details in `/example_np/LSH_Raw_Signal_Alignment_np_v2.ipynb`.
 
-## Raw Signal Mapping
+## Raw signal mapping
 
 **Input FAST5 File Format:** The input should be in standard FAST5 format containing raw nanopore signal data. Each read in the file stores the electrical current measurements from nanopore sequencing.
 
