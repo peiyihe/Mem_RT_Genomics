@@ -2,7 +2,7 @@
 
 **Memristor based in-memory computing hardware-software co-design** for efficient on-site nanopore raw signal alignment. We simulate the performance of our method based on real-world memristor device and real nanopore sequencing data.
 
-**Pre-print **: [https://doi.org/10.48550/arXiv.2504.15934](https://doi.org/10.48550/arXiv.2504.15934)
+**Pre-print ** : [https://doi.org/10.48550/arXiv.2504.15934](https://doi.org/10.48550/arXiv.2504.15934)
 
 ![overview](fig/overview.jpg)
 
