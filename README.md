@@ -2,7 +2,7 @@
 
 **Memristor based in-memory computing hardware-software co-design** for efficient on-site nanopore raw signal alignment. We simulate the performance of our method based on real-world memristor device and real nanopore sequencing data.
 
-This is the source code for the paper: [Real-time raw signal genomic analysis using fully integrated memristor hardware](https://arxiv.org/abs/2504.15934). 
+**Pre-print **: [https://doi.org/10.48550/arXiv.2504.15934](https://doi.org/10.48550/arXiv.2504.15934)
 
 ![overview](fig/overview.jpg)
 
@@ -66,7 +66,7 @@ python -u lsh.py \
 - `input_ref_fa`: Input reference genome file path.
 - `read_number`: Maximum numbers of raw signal to map.
 - `sample_number`: Maximum number of raw signal samples. For example, with R9.4.1 nanopore sequencing, 4000 samples are collected per second.
-- `skip_samples`: Number of initial samples to skip in nanopore raw signal
+- `skip_samples`: Number of initial samples to skip in nanopore raw signal.
 - `threshold`: TCAM threshold value.
 - `std`: The memristor conductance variation in TCAM is set to 2 µS.
 
