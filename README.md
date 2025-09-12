@@ -2,7 +2,15 @@
 
 **Memristor based in-memory computing hardware-software co-design** for efficient on-site nanopore raw signal alignment. We simulate the performance of our method based on real-world memristor device and real nanopore sequencing data.
 
-**Pre-print**: [https://doi.org/10.48550/arXiv.2504.15934](https://doi.org/10.48550/arXiv.2504.15934)
+**Preprint**: [https://doi.org/10.48550/arXiv.2504.15934](https://doi.org/10.48550/arXiv.2504.15934)
+
+**Publication**: [https://doi.org/10.1038/s43588-025-00867-w
+](https://doi.org/10.1038/s43588-025-00867-w)
+
+[![DOI](https://zenodo.org/badge/DOI/10.1038/s43588-025-00867-w.svg)](https://doi.org/10.1038/s43588-025-00867-w)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16603592.svg)](https://doi.org/10.5281/zenodo.16603592)
+![License](https://img.shields.io/badge/license-MIT-yellow)
+<!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16573985.svg)](https://doi.org/10.5281/zenodo.16573985) -->
 
 ![overview](fig/overview.jpg)
 
