@@ -183,8 +183,8 @@ with open(output_txt_file, 'w', encoding='utf-8') as f:
         r_id = read_id[i]
         direction_val = _direction[i]
         
-        low_b = int(low_boundary[i]) if low_boundary[i] != '*' and pd.notnull(low_boundary[i]) else 0
-        high_b = int(high_boundary[i]) if high_boundary[i] != '*' and pd.notnull(high_boundary[i]) else 0
+        low_b = int(low_boundary[i]) if low_boundary[i] != '*' and pd.notnull(low_boundary[i]) else '*'
+        high_b = int(high_boundary[i]) if high_boundary[i] != '*' and pd.notnull(high_boundary[i]) else '*'
         
         row_str = f"{r_id}\t1\t0\t1\t{direction_val}\t{ref_name}\t{ref_length}\t{low_b}\t{high_b}\t0\t1\t255\tch:i:0\tst:i:0\tmt:f:0\n"
         f.write(row_str)
