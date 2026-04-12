@@ -10,9 +10,7 @@ import sequence_to_signal
 import cam_search
 from cam_array import CAMArray
 from event_processor import EventProcessor, fast5_id_list
-from cam_process import process_sample, process_sample_contamination, process_sample_variation, process_sample_contamination_variation
-from cam_process import update_position, update_position_contamination, update_position_variation, update_position_contamination_variation
-from cam_process import process_location
+from cam_process import *
 from openpyxl import load_workbook
 import argparse
 from pafstats import run, calculate
@@ -161,7 +159,6 @@ df = pd.DataFrame({
 file_path_csv = "result/{}_cov_votes_threshold_{}_std_{}.csv".format(sample_number, _Threshold, std)
 
 # Save the DataFrame to a CSV file
-# file_path = 'result/cov_mapping_threshold_1.csv'
 df.to_csv(file_path_csv, index=False)
 
 
@@ -174,42 +171,28 @@ high_boundary=[]
 _position=np.array(_position)
 low_boundary,high_boundary= process_location(sample_number, skip_samples, sp, low_boundary, high_boundary, read_id, read_number, _position, fast5_file, sub_array_row)
 
-data_list = _direction
-
-# load template
-# template_file_path = 'result_template/test_10k_template.xlsx'
-if fast5_file == '../dataset/SP1-mapped500.fast5':
-    template_file_path = 'result_template/test_SP1_500_template.xlsx'
-else:
-    template_file_path = 'result_template/test_10k_template.xlsx'
-
-wb = load_workbook(template_file_path)
-ws = wb.active  
-
-for index, item in enumerate(data_list, start=1):  
-    ws[f'E{index}'].value = item
-
-for index, item in enumerate(low_boundary, start=1):  
-    ws[f'H{index}'].value = item
-
-for index, item in enumerate(high_boundary, start=1):  
-    ws[f'I{index}'].value = item
-
-# save
-output_file_path = "result/{}_test_LSH_rm_threshold_{}_std_{}.xlsx".format(sample_number, _Threshold, std)
-
-wb.save(output_file_path)
-
-output_file_path_txt = "result/{}_test_LSH_rm_threshold_{}_std_{}".format(sample_number, _Threshold, std)
-
 # write
-with open(output_file_path_txt, 'w', encoding='utf-8') as f:
-    for row in ws.iter_rows(values_only=True):
-        row_data = '\t'.join(map(str, row))
-        f.write(row_data + '\n')
+with open(main_sequence_path, 'r') as f:
+    ref_name = f.readline().strip().lstrip('>').split()[0]
+
+ref_length = main_sequence_length
+output_txt_file = "result/{}_test_LSH_rm_threshold_{}_std_{}".format(sample_number, _Threshold, std)
+
+with open(output_txt_file, 'w', encoding='utf-8') as f:
+    for i in range(read_number):
+        r_id = read_id[i]
+        direction_val = _direction[i]
+        
+        low_b = int(low_boundary[i]) if low_boundary[i] != '*' and pd.notnull(low_boundary[i]) else 0
+        high_b = int(high_boundary[i]) if high_boundary[i] != '*' and pd.notnull(high_boundary[i]) else 0
+        
+        row_str = f"{r_id}\t1\t0\t1\t{direction_val}\t{ref_name}\t{ref_length}\t{low_b}\t{high_b}\t0\t1\t255\tch:i:0\tst:i:0\tmt:f:0\n"
+        f.write(row_str)
+
+print(f"finished writing to {output_txt_file}")
 
 args = argparse.Namespace(
-    infile=output_file_path_txt,  
+    infile=output_txt_file,  
     max_reads=read_number,  
     ref_paf="result_template/minimap2_sars2.paf",  
     annotate=False  
