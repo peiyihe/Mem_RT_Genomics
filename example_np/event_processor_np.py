@@ -3,6 +3,7 @@ from uncalled4 import PoreModel, Config, EventDetector, SignalProcessor
 from ont_fast5_api.fast5_interface import get_fast5_file
 from tqdm import tqdm
 import h5py
+import numpy as np
 
 def EventProcessor():
     # first parameter
@@ -24,14 +25,42 @@ def EventProcessor():
 
     return sp, sp1
 
+# Normalization parameters for different pore types
+NORMALIZE_PARAMS = {
+    'r9': {'tgt_mean': 90.20827, 'tgt_stdv': 12.83266},
+}
+
+def normalize_signal(signal, pore_type='r9'):
+
+    """
+    Normalize the signal using the same logic as Normalizer::at in C++:
+    scale = tgt_stdv / sqrt(varsum_ / n_)
+    shift = tgt_mean - scale * mean_
+    normalized_signal[i] = scale * signal[i] + shift
+    pore_type: 'r9'
+    """
+    if pore_type not in NORMALIZE_PARAMS:
+        raise ValueError(f"Unknown pore_type: {pore_type}. Use 'r9' or 'r10'.")
+    tgt_mean = NORMALIZE_PARAMS[pore_type]['tgt_mean']
+    tgt_stdv = NORMALIZE_PARAMS[pore_type]['tgt_stdv']
+    
+    n = len(signal)
+    mean_ = np.mean(signal)
+    varsum_ = np.sum((signal - mean_) ** 2)
+    scale = tgt_stdv / np.sqrt(varsum_ / n)
+    shift = tgt_mean - scale * mean_
+    normalized_signal = scale * signal + shift
+    return normalized_signal
+
 def read_event(sp, file, id, sample_number):
     """ Extracts and processes events from a given FAST5 file using the specified signal processor. """
     with get_fast5_file(file, mode='r') as f5:
         read_id = id
         _read = f5.get_read(read_id)
         signal = _read.get_raw_data(scale=True)  # Scale signal to unit amplitude
+        signal = normalize_signal(signal)
         signal = signal[0:sample_number]
-    read = sp.process_signal(signal, normalize=True)  # Signal should be numpy array/list of raw sample values
+    read = sp.process_signal(signal, normalize=False)  # Signal should be numpy array/list of raw sample values
     return read.events["mean"]
 
 def filter_events(read_events, difference):
